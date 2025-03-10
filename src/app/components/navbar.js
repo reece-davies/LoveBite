@@ -7,10 +7,10 @@ export default function Navbar() {
         </div>
         <ul className="flex space-x-8">
           <li>
-            <a href="/" className="transition-all">Shopping List</a>
+            <a href="/">Shopping List</a>
           </li>
           <li>
-            <a href="/recipes" className="hover:font-bold transition-all">Recipes</a>
+            <a href="/recipes">Recipes</a>
           </li>
         </ul>
       </div>
