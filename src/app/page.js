@@ -18,7 +18,7 @@ export default function Home() {
         <div className="space-y-3">
           <label className="flex items-center space-x-3">
             <input type="checkbox" className="w-5 h-5 accent-green-600" />
-            <span className="text-gray-800">Chicken fajitas aaaaaaaaa aaaaaaaaa aaaaaaaaa aaaaaaa </span>
+            <span className="text-gray-800">Chicken fajitas </span>
           </label>
           <label className="flex items-center space-x-3">
             <input type="checkbox" className="w-5 h-5 accent-green-600" />
