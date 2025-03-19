@@ -11,7 +11,7 @@ export default function Home() {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        //
+        // Process firestore data
         const querySnapshot = await getDocs(collection(db, "recipes"));
         const recipeList = querySnapshot.docs.map(doc => ({
           id: doc.id,
@@ -41,23 +41,24 @@ export default function Home() {
           priority
         />
 
+        {/*
         {recipes.map((recipe) => (
           <p key={recipe.id}>RECIPE = {recipe.name}</p>
-        ))}
+        ))} */}
         
         <div className="space-y-3">
+          {/*
           <label className="flex items-center space-x-3">
             <input type="checkbox" className="w-5 h-5 accent-green-600" />
-            <span className="text-gray-800">Chicken fajitas </span>
+            <span className="text-gray-800">Placeholder</span>
+          </label> */}
+
+          {recipes.map((recipe) => (
+            <label key={recipe.id} className="flex items-center space-x-3">
+              <input type="checkbox" className="w-5 h-5 accent-green-600" />
+              <span className="text-gray-800">{recipe.name}</span>
           </label>
-          <label className="flex items-center space-x-3">
-            <input type="checkbox" className="w-5 h-5 accent-green-600" />
-            <span className="text-gray-800">Pesto pasta</span>
-          </label>
-          <label className="flex items-center space-x-3">
-            <input type="checkbox" className="w-5 h-5 accent-green-600" />
-            <span className="text-gray-800">Fried rice</span>
-          </label>
+          ))}
         </div>
       </main>
     </div>
