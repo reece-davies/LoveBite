@@ -1,6 +1,31 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { db } from "@/lib/firebase.js"
 import Image from "next/image";
+import { collection, getDocs } from "firebase/firestore";
 
 export default function Home() {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        //
+        const querySnapshot = await getDocs(collection(db, "recipes"));
+        const recipeList = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }))
+        setRecipes(recipeList);
+      } catch (error) {
+        console.log("ERROR = ", error)
+      }
+    };
+
+    fetchRecipes();
+  }, []);
+
   return (
     // Removed styling: min-h-screen pb-18
     // border-4 border-red-500
@@ -15,6 +40,11 @@ export default function Home() {
           height={38}
           priority
         />
+
+        {recipes.map((recipe) => (
+          <p key={recipe.id}>RECIPE = {recipe.name}</p>
+        ))}
+        
         <div className="space-y-3">
           <label className="flex items-center space-x-3">
             <input type="checkbox" className="w-5 h-5 accent-green-600" />
