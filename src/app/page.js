@@ -31,7 +31,7 @@ export default function Home() {
     // border-4 border-red-500
     <div className="bg-zinc-100 min-h-screen grid grid-rows-[auto_1fr_20px] items-start justify-items-center p-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="bg-white flex flex-col p-8 gap-8 row-start-2 items-center sm:items-start min-w-[300px] max-w-[500px]">
-        <h1>Shopping List</h1>
+        <h1 className="text-xl">Shopping List</h1>
         <Image
           className="dark:invert"
           src="/next.svg"
@@ -46,20 +46,33 @@ export default function Home() {
           <p key={recipe.id}>RECIPE = {recipe.name}</p>
         ))} */}
         
-        <div className="space-y-3">
-          {/*
-          <label className="flex items-center space-x-3">
-            <input type="checkbox" className="w-5 h-5 accent-green-600" />
-            <span className="text-gray-800">Placeholder</span>
-          </label> */}
-
-          {recipes.map((recipe) => (
-            <label key={recipe.id} className="flex items-center space-x-3">
+        
+        {/*
+        <label className="flex items-center space-x-3">
+          <input type="checkbox" className="w-5 h-5 accent-green-600" />
+          <span className="text-gray-800">Placeholder</span>
+        </label> */}
+        
+        {/* Recipe */}
+        {recipes.map((recipe) => (
+          <div key={recipe.id} className="space-y-3">
+            <label className="flex items-center space-x-3">
               <input type="checkbox" className="w-5 h-5 accent-green-600" />
               <span className="text-gray-800">{recipe.name}</span>
-          </label>
-          ))}
-        </div>
+            </label>
+
+            {/* Ingredient */}
+            <ul>
+            {recipe.ingredients && recipe.ingredients.length > 0 ? (
+              recipe.ingredients.map((ingredient, index) => (
+                <li key={`${recipe.id}-${index}`}>{ingredient}</li>
+              ))
+            ) : (
+              <p> No ingredients</p>
+            )}
+            </ul>
+          </div>
+        ))}
       </main>
     </div>
   );

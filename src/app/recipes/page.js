@@ -1,11 +1,37 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { db } from "@/lib/firebase.js"
+import { collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
 
 export default function Home() {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        // Process firestore data
+        const querySnapshot = await getDocs(collection(db, "recipes"));
+        const recipeList = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }))
+        setRecipes(recipeList);
+      } catch (error) {
+        console.log("ERROR = ", error)
+      }
+    };
+
+    fetchRecipes();
+  }, []);
+
+
   return (
     // Removed styling: min-h-screen
     <div className="bg-zinc-100 min-h-screen grid grid-rows-[auto_1fr_20px] items-start justify-items-center p-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="bg-white flex flex-col p-8 gap-8 row-start-2 items-center sm:items-start min-w-[300px] max-w-[500px]">
-        <h1>Recipes</h1>
+        <h1 className="text-xl">Recipes</h1>
         <Image
           className="dark:invert"
           src="/next.svg"
@@ -43,6 +69,15 @@ export default function Home() {
             Read our docs
           </a>
         </div>
+
+        {/* Recipe */}
+        {recipes.map((recipe) => (
+          <div key={recipe.id} className="border-2 border-gray-500 w-full">
+            <p className="text-gray-800">{recipe.name}</p>
+          </div>
+        ))}
+
+
       </main>
     </div>
   );
