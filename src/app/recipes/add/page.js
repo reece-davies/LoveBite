@@ -7,21 +7,42 @@ import { addDoc, collection } from "firebase/firestore";
 export default function Home() {
   const [formData, setFormData] = useState({
     name: "",
-    ingredients: "",
+    ingredients: [""],
   });
   const [loading, setLoading] = useState(false);
 
+  // Handle changes to Recipe title/name
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
     }))
-  }
+  };
+
+  // Handle changes to each ingredient input
+  const handleIngredientChange = (index, value) => {
+    const newIngredients = [...formData.ingredients];
+    newIngredients[index] = value;
+    setFormData((prevData) => ({
+      ...prevData,
+      ingredients: newIngredients,
+    }))
+  };
+
+  // Add another ingredient text input
+  const addIngredientField = () => {
+    setFormData((prevData) => ({
+      ...prevData,
+      ingredients: [...prevData.ingredients, ""],
+    }))
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.ingredients) {
+
+    const filteredIngredients = formData.ingredients.filter((ing) => ing.trim() !== "")
+    if (!formData.name || filteredIngredients.length === 0) {
       alert("Please fill in all fields");
       return;
     }
@@ -30,11 +51,10 @@ export default function Home() {
     try {
       // POST to FireStore
       const recipeRef = collection(db, "recipes");
-      await addDoc(recipeRef, formData);
+      await addDoc(recipeRef, {...formData, ingredients: filteredIngredients});
       alert("Recipe added successfully!");
 
-
-      setFormData({name: "", ingredients: ""})
+      setFormData({name: "", ingredients: [""]})
     } catch (error) {
       console.error("Error adding recipe: ", error);
       alert("Error adding recipe. See console for more info.");
@@ -67,14 +87,23 @@ export default function Home() {
           <label htmlFor="ingredients" className="text-sm font-medium">
             Ingredients
           </label>
-          <textarea
-            id="ingredients"
-            name="ingredients"
-            value={formData.ingredients}
-            onChange={handleChange}
-            placeholder="Enter ingredients"
-            className="border rounded p-2"
-          />
+          
+          {formData.ingredients.map((ingredient, index) => (
+            <input
+              key={index}
+              type="text"
+              value={ingredient}
+              onChange={(e) => handleIngredientChange(index, e.target.value)}
+              placeholder={`Ingredient ${index + 1}`}
+              className="border rounded p-2"
+            />
+          ))}
+
+          <button
+            type="button"
+            onClick={addIngredientField}
+            className="border rounded p-2 bg-gray-200 hover:bg-gray-300"
+          >+ Add ingredient</button>
 
           <div className="flex gap-4 content-center items-center flex-col sm:flex-row justify-center w-full">
             <button
@@ -82,7 +111,7 @@ export default function Home() {
               disabled={loading}
               className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
             >
-              Add Recipe
+              {loading ? "Adding..." : "Add Recipe"}
             </button>
           </div>
         </form>
