@@ -5,7 +5,7 @@ import { db } from "@/lib/firebase.js"
 import { collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
 
-export default function Home() {
+export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase.js"
 import { addDoc, collection } from "firebase/firestore";
 
-export default function Home() {
+export default function AddRecipe() {
   const [formData, setFormData] = useState({
     name: "",
     ingredients: [""],
