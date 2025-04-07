@@ -8,7 +8,15 @@ import { collection, getDocs } from "firebase/firestore";
 
 export default function Home() {
   const [recipes, setRecipes] = useState([]);
-  const dummyData = "BING BONG!" // Replace with filtered selected recipes
+  const [selectedRecipes, setSelectedRecipes] = useState([])
+
+  const handleCheckboxChange = (recipeId) => {
+    setSelectedRecipes((prevSelected) => 
+      prevSelected.includes(recipeId)
+      ? prevSelected.filter((id) => id !== recipeId)
+      : [...prevSelected, recipeId]
+    );
+  };
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -60,7 +68,12 @@ export default function Home() {
         {recipes.map((recipe) => (
           <div key={recipe.id} className="space-y-3">
             <label className="flex items-center space-x-3">
-              <input type="checkbox" className="w-5 h-5 accent-green-600" />
+              <input
+                type="checkbox"
+                className="w-5 h-5 accent-green-600" 
+                checked={selectedRecipes.includes(recipe.id)}
+                onChange={() => handleCheckboxChange(recipe.id)}
+                />
               <span className="text-gray-800">{recipe.name}</span>
             </label>
 
@@ -82,7 +95,7 @@ export default function Home() {
             className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
             href={{
               pathname: "/list",
-              query: { dummyData },
+              query: { ids: JSON.stringify(selectedRecipes) },
               }}
           >
             Generate Shopping List
