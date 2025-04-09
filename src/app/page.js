@@ -40,11 +40,10 @@ export default function Home() {
     // Removed styling: min-h-screen pb-18
     // border-4 border-red-500
     <div className="bg-zinc-100 min-h-screen grid grid-rows-[auto_1fr_20px] items-start justify-items-center p-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="bg-white flex flex-col p-8 gap-8 row-start-2 items-center sm:items-start min-w-[300px] max-w-[500px]">
-        <h1 className="text-xl">Shopping List</h1>
-        <p className="m-0">Made using</p>
+      <main className="bg-white flex flex-col p-8 gap-4 row-start-2 items-center sm:items-start min-w-[300px] max-w-[500px]">
+        <p className="m-0"><span className="font-bold">LoveBites </span>- made using</p>
         <Image
-          className="dark:invert"
+          className="dark:invert mb-6"
           src="/next.svg"
           alt="Next.js logo"
           width={180}
@@ -78,6 +77,7 @@ export default function Home() {
             </label>
 
             {/* Ingredient */}
+            {/* 
             <ul>
             {recipe.ingredients && recipe.ingredients.length > 0 ? (
               recipe.ingredients.map((ingredient, index) => (
@@ -87,6 +87,7 @@ export default function Home() {
               <p> No ingredients</p>
             )}
             </ul>
+            */}
           </div>
         ))}
 
