@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase.js"
 import { collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -63,8 +64,15 @@ export default function Recipes() {
 
         {/* Recipe */}
         {recipes.map((recipe) => (
-          <div key={recipe.id} className="border-2 border-gray-500 w-full">
-            <p className="text-gray-800">{recipe.name}</p>
+          <div key={recipe.id} className="border rounded p-2 w-full">
+            <div className="flex justify-between items-center">
+              <p>{recipe.name}</p>
+              <Link
+                href={`/recipes/edit/${recipe.id}`}
+                className="text-purple-600 hover:font-medium" 
+              >
+                Edit</Link>
+            </div>
           </div>
         ))}
 
