@@ -3,8 +3,10 @@
 import { useEffect, useState } from "react";
 import { db } from "@/lib/firebase.js"
 import { addDoc, collection } from "firebase/firestore";
+import { useRouter } from "next/navigation";
 
 export default function AddRecipe() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
     ingredients: [""],
@@ -53,8 +55,8 @@ export default function AddRecipe() {
       const recipeRef = collection(db, "recipes");
       await addDoc(recipeRef, {...formData, ingredients: filteredIngredients});
       alert("Recipe added successfully!");
-
-      setFormData({name: "", ingredients: [""]})
+      router.push("/");
+      //setFormData({name: "", ingredients: [""]})  // Not needed anymore
     } catch (error) {
       console.error("Error adding recipe: ", error);
       alert("Error adding recipe. See console for more info.");
