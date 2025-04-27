@@ -40,7 +40,7 @@ export default function Home() {
     // Removed styling: min-h-screen pb-18
     // border-4 border-red-500
     <div className="bg-zinc-100 min-h-screen grid grid-rows-[auto_1fr_20px] items-start justify-items-center p-8 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="bg-white flex flex-col p-8 gap-4 row-start-2 items-center sm:items-start min-w-[300px] max-w-[500px]">
+      <main className="bg-white flex flex-col p-8 gap-4 row-start-2 items-stretch sm:items-start w-full min-w-[300px] max-w-[500px]">
         <p className="m-0 text-black"><span className="font-bold">LoveBites </span>- made using</p>
         <Image
           className="mb-6"
@@ -66,7 +66,7 @@ export default function Home() {
         {/* Recipe */}
         {recipes.map((recipe) => (
           <div key={recipe.id} className="space-y-3">
-            <label className="flex space-x-3">
+            <label className="flex items-center space-x-3 w-full">
               <input
                 type="checkbox"
                 className="w-5 h-5 accent-green-600" 
