@@ -66,7 +66,7 @@ export default function Home() {
         {/* Recipe */}
         {recipes.map((recipe) => (
           <div key={recipe.id} className="space-y-3">
-            <label className="flex items-center space-x-3">
+            <label className="flex space-x-3">
               <input
                 type="checkbox"
                 className="w-5 h-5 accent-green-600" 
