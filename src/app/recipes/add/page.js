@@ -55,7 +55,7 @@ export default function AddRecipe() {
       const recipeRef = collection(db, "recipes");
       await addDoc(recipeRef, {...formData, ingredients: filteredIngredients});
       alert("Recipe added successfully!");
-      router.push("/");
+      router.push("/recipes");
       //setFormData({name: "", ingredients: [""]})  // Not needed anymore
     } catch (error) {
       console.error("Error adding recipe: ", error);

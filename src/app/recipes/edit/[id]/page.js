@@ -91,7 +91,7 @@ export default function EditRecipe() {
       });
       //await addDoc(recipeRef, {...formData, ingredients: filteredIngredients});
       alert("Recipe updated successfully!");
-      router.push("/"); // or "/recipes" or whatever your homepage path is
+      router.push("/recipes"); // or "/recipes" or whatever your homepage path is
 
       //setFormData({name: "", ingredients: [""]}) // Not needed anymore
     } catch (error) {
@@ -108,7 +108,7 @@ export default function EditRecipe() {
     console.log("Deleted recipe")
     alert("Recipe deleted successfully!");
 
-    router.push("/");
+    router.push("/recipes");
   }
 
 
